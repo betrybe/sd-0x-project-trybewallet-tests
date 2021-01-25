@@ -383,6 +383,30 @@ describe('6 - [PÁGINA DA CARTEIRA] Crie um botão para deletar uma despesa da t
 
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
   });
+
+  test('Ao clicar no botão para remover uma despesa, o valor correspondente deve ser subtraído do estado global e a despesa total deve ser atualizada no header', () => {
+    const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
+    const deleteBtn = screen.getAllByTestId('delete-btn')[0];
+    
+    fireEvent.click(deleteBtn);
+
+    const newExpenses = [
+      {
+        id: 1,
+        value: '20',
+        currency: 'EUR',
+        method: 'Dinheiro',
+        tag: 'Trabalho',
+        description: 'Vinte euros',
+        exchangeRates: mockData,
+      },
+    ];
+
+    expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
+
+    const totalField = screen.getByTestId('total-field');
+    expect(totalField).toContainHTML('131.37');
+  });
 });
 
 describe('7 - [BÔNUS] Crie um botão para editar uma despesa da tabela contendo as seguintes características:', () => {
