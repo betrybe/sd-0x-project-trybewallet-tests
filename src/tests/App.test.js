@@ -257,7 +257,7 @@ describe('4 - [PÁGINA DA CARTEIRA] Desenvolva um formulário para adicionar uma
     ];
 
     await waitFor(() => {
-      expect(valueInput).toContainHTML(0);	      expect(valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '').toBe(true);
+      expect(valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '').toBe(true);
     });
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense);
 
